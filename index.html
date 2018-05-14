@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Game</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+		
+
+    <!-- Custom styles for this template -->
+    <style>
+	  body {
+		padding-top: 54px;
+	  }
+	  @media (min-width: 992px) {
+		body {
+		  padding-top: 56px;
+		}
+	  }
+	
+	.container {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-flow: row wrap; 
+		flex-flow: row wrap;
+	} 
+	.click {
+		background-color: blue;
+	}
+	table td {
+		width: 50px;
+		height: 50px;
+	}
+	.board {
+		margin: 0 auto;
+		margin-top: 10px;
+	}
+	table, td, th { 
+		border: 1px solid gray;
+	}
+    </style>
+	
+	<script>
+
+	var M = 10;
+	var N = 10;
+
+	$(function(){
+		$("table").append("<tbody>");
+		
+		for(var i=0; i<M; i++)
+			$("tbody").append("<tr>");
+		
+		for(var i=0; i<N; i++)
+			$("tr").append("<td>");
+			
+		$("td").click(function(e){
+			$(this).toggleClass("click");
+		});
+		
+	});
+	</script>
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Statki</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container"> 
+		<div class="board">
+			<h1>TY<span class="badge badge-secondary" style="float:right">4000</span></h1>
+			<table>
+
+			</table>
+		</div>
+		
+		<div class="board">
+			<h1>OPONENT<span class="badge badge-secondary" style="float:right">10000</span></h1>
+			<table>
+
+			</table>
+		</div>
+	</div>
+
+  </body>
+
+</html>

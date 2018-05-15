@@ -1,0 +1,36 @@
+body {
+	padding-top: 54px;
+	}
+@media (min-width: 992px) {
+	body {
+	  padding-top: 56px;
+	}
+}
+
+.container {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row wrap; 
+	flex-flow: row wrap;
+} 
+.click {
+	background-color: blue;
+}
+table td {
+	width: 50px;
+	height: 50px;
+}
+.board {
+	margin: 0 auto;
+}
+table, td, th { 
+	border: 1px solid gray;
+}
+body { 
+background: url(../img/bg.jpg)no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height:100%;
+}

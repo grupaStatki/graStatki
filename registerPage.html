@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Game</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	var check = function() {
+	  if (document.getElementById('password').value ==
+		document.getElementById('confirm_password').value) {
+		document.getElementById('message').style.color = 'green';
+		document.getElementById('message').innerHTML = 'Hasła zgadzają się';
+		document.getElementById('submit').disabled = false;
+	  } else {
+		document.getElementById('message').style.color = 'red';
+		document.getElementById('message').innerHTML = 'Hasła nie zgadzają się';
+		document.getElementById('submit').disabled = true;
+	  }
+	}
+	</script>
+		
+
+    <!-- Custom styles -->
+    <link href="css/loginPage.css" rel="stylesheet">
+	
+  </head>
+
+  <body>
+
+	<div id="fullscreen_bg" class="fullscreen_bg"/>
+
+		<div class="container">
+
+			<form class="form-signin">
+				<h1 class="form-signin-heading">Statki</h1>
+				<input type="email" class="form-control" placeholder="Adres email" required="" autofocus="">
+				<input type="password" id="password" class="form-control" name="password" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Musi zawierać przynajmniej jedną cyfrę, jedną małą literę, jedną dużą literę, łącznie przynajmniej 8 znaków" required="" onkeyup='check();'>
+				<input type="password" id="confirm_password" class="form-control" name="confirm_password" placeholder="Powtórz hasło" onkeyup='check();' />
+				<span class="badge badge-light" id='message'></span>
+				<button class="btn btn-lg btn-success btn-block" type="submit" name="submit" id="submit">
+					Zarejestruj sie
+				</button>
+			</form>
+
+		</div>
+  </body>
+</html>

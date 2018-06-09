@@ -114,8 +114,6 @@ function verifyShip() {
     console.log(lastBlockPos);
     console.log(shipPlacingArray[lastBlockPos[1]][lastBlockPos[0]]);
 
-
-
     var count = 0;
     if (firstBlockPos[1] == lastBlockPos[1]) {
         for (var i = 0; i < width; i++) {
@@ -163,26 +161,60 @@ function verifyShip() {
         alert("Złe rozmieszczenie bloków!");
 }
 
-
-//gameTables[0].rows[firstBlockPos[1]].cells[i].classList=="click"
-
 function addShipToTable() {
     if (dirHorizontal) {
-        //    console.log(foundFirstBlock+" "+foundLastBlock);
         for (var i = foundFirstBlock[0]; i <= foundLastBlock[0]; i++) {
             playerArray[foundFirstBlock[1]][i] = shipSize;
             gameTables[0].rows[foundFirstBlock[1]].cells[i].classList.toggle("placed");
             gameTables[0].rows[foundFirstBlock[1]].cells[i].onclick = null;
         }
+
+        for (var i = foundFirstBlock[0] - 1; i <= foundLastBlock[0] + 1; i++) {
+            if (i < 0)
+                i = 0;
+            for (var j = parseInt(foundFirstBlock[1]) - 1; j <= parseInt(foundLastBlock[1]) + 1; j++) {
+                if (j < 0)
+                    j = 0;
+                if (i < 10 && j < 10) {
+                    if (playerArray[j][i] == 0) {
+                        playerArray[j][i] = 9;
+                        gameTables[0].rows[j].cells[i].classList.toggle("blocked");
+                        gameTables[0].rows[j].cells[i].onclick = null;
+                    }
+                }
+            }
+
+        }
     } else {
         for (var i = foundFirstBlock[1]; i <= foundLastBlock[1]; i++) {
-            //     console.log(foundFirstBlock+" "+foundLastBlock);
             playerArray[i][foundFirstBlock[0]] = shipSize;
             gameTables[0].rows[i].cells[foundFirstBlock[0]].classList.toggle("placed");
             gameTables[0].rows[i].cells[foundFirstBlock[0]].onclick = null;
         }
+
+        for (var i = foundFirstBlock[1] - 1; i <= foundLastBlock[1] + 1; i++) {
+            if (i < 0)
+                i = 0;
+            for (var j = parseInt(foundFirstBlock[0]) - 1; j <= parseInt(foundLastBlock[0]) + 1; j++) {
+                if (j < 0)
+                    j = 0;
+                if (i < 10 && j < 10) {
+                    if (playerArray[i][j] == 0) {
+                        playerArray[i][j] = 9;
+                        gameTables[0].rows[i].cells[j].classList.toggle("blocked");
+                        gameTables[0].rows[i].cells[j].onclick = null;
+                    }
+                }
+            }
+        }
     }
     console.log(playerArray);
+
+
+    for (var i = 0; i < height; i++) {
+        shipPlacingArray[i] = new Array(width).fill(0);
+    }
+
 
     firstBlockPos.fill(0);
     lastBlockPos.fill(0);

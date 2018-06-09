@@ -20,7 +20,7 @@ body {
 	background-color: blue;
 }
 .blocked {
-	background-color: rgb(85, 85, 85);
+	background-color: lightgray;
 }
 table td {
 	width: 50px;

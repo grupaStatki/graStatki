@@ -9,13 +9,21 @@ var height = 10,
     width = 10;
 //
 //ship placing variables
-var placingPhase = true;
+var placingPhase = true,
+    dirHorizontal = true; // true - horizontal, false - vertical
 var shipSize = 4,
     placedBlocks = 0;
-var firstBlockPos = new Array(2);
-var lastBlockPos = new Array(2);
+var firstBlockPos = new Array(2),
+    lastBlockPos = new Array(2),
+    foundFirstBlock = new Array(2),
+    foundLastBlock = new Array(2);
+var shipsQuantity = [4, 3, 2, 1];
 //
 //ship placement array    
+var shipPlacingArray = new Array(height);
+for (var i = 0; i < height; i++) {
+    shipPlacingArray[i] = new Array(width).fill(0);
+}
 var playerArray = new Array(height);
 for (var i = 0; i < height; i++) {
     playerArray[i] = new Array(width).fill(0);
@@ -81,16 +89,16 @@ function placeShipBlock(tableCell) {
 
     if (tableCell.classList != "click" && placedBlocks < shipSize) {
         tableCell.classList.toggle("click");
-        if(placedBlocks==0)
-            firstBlockPos=[y,x];
-        playerArray[x][y] = shipSize;
+        if (placedBlocks == 0)
+            firstBlockPos = [y, x];
+        shipPlacingArray[x][y] = shipSize;
         placedBlocks += 1;
-        if(placedBlocks==shipSize)
-            lastBlockPos=[y,x];
-        
+        if (placedBlocks == shipSize)
+            lastBlockPos = [y, x];
+
     } else if (tableCell.classList == "click") {
         tableCell.classList.toggle("click");
-        playerArray[x][y] = 0;
+        shipPlacingArray[x][y] = 0;
         placedBlocks -= 1;
     }
     if (placedBlocks == shipSize) {
@@ -101,50 +109,94 @@ function placeShipBlock(tableCell) {
 }
 
 function verifyShip() {
-    console.log(playerArray);
+    console.log(shipPlacingArray);
     console.log(firstBlockPos);
     console.log(lastBlockPos);
-    console.log(playerArray[lastBlockPos[1]][lastBlockPos[0]]);
+    console.log(shipPlacingArray[lastBlockPos[1]][lastBlockPos[0]]);
 
-    var count=0;
-    if(firstBlockPos[1]==lastBlockPos[1]){
-        for(var i=0; i<width;i++){
-            if(playerArray[firstBlockPos[1]][i] == shipSize){
-                count+=1;
-                if(count==shipSize)
+
+
+    var count = 0;
+    if (firstBlockPos[1] == lastBlockPos[1]) {
+        for (var i = 0; i < width; i++) {
+            if (shipPlacingArray[firstBlockPos[1]][i] == shipSize) {
+                if (count == 0) {
+                    foundFirstBlock = [i, firstBlockPos[1]];
+                }
+                count += 1;
+                if (count == shipSize) {
+                    foundLastBlock = [i, firstBlockPos[1]];
+                    dirHorizontal = true;
                     break;
-            }else{
-                count=0;
+                }
+            } else {
+                count = 0;
             }
         }
-        if(count==shipSize){
-            alert(count);
-        }else{
+        if (count == shipSize) {
+            addShipToTable();
+        } else {
             alert("Złe rozmieszczenie bloków!");
         }
-    }else if(firstBlockPos[0]==lastBlockPos[0]){
-        for(var i=0; i<height;i++){
-            if(playerArray[i][firstBlockPos[0]] == shipSize){
-                count+=1;
-                if(count==shipSize)
-                break;
-            }else{
-                count=0;
+    } else if (firstBlockPos[0] == lastBlockPos[0]) {
+        for (var i = 0; i < height; i++) {
+            if (shipPlacingArray[i][firstBlockPos[0]] == shipSize) {
+                if (count == 0) {
+                    foundFirstBlock = [firstBlockPos[0], i];
+                }
+                count += 1;
+                if (count == shipSize) {
+                    foundLastBlock = [firstBlockPos[0], i];
+                    dirHorizontal = false;
+                    break;
+                }
+            } else {
+                count = 0;
             }
         }
-        if(count==shipSize){
-            alert(count);
-        }else{
+        if (count == shipSize) {
+            addShipToTable();
+        } else {
             alert("Złe rozmieszczenie bloków!");
         }
-    }else
+    } else
         alert("Złe rozmieszczenie bloków!");
 }
 
 
 //gameTables[0].rows[firstBlockPos[1]].cells[i].classList=="click"
 
+function addShipToTable() {
+    if (dirHorizontal) {
+        //    console.log(foundFirstBlock+" "+foundLastBlock);
+        for (var i = foundFirstBlock[0]; i <= foundLastBlock[0]; i++) {
+            playerArray[foundFirstBlock[1]][i] = shipSize;
+            gameTables[0].rows[foundFirstBlock[1]].cells[i].classList.toggle("placed");
+            gameTables[0].rows[foundFirstBlock[1]].cells[i].onclick = null;
+        }
+    } else {
+        for (var i = foundFirstBlock[1]; i <= foundLastBlock[1]; i++) {
+            //     console.log(foundFirstBlock+" "+foundLastBlock);
+            playerArray[i][foundFirstBlock[0]] = shipSize;
+            gameTables[0].rows[i].cells[foundFirstBlock[0]].classList.toggle("placed");
+            gameTables[0].rows[i].cells[foundFirstBlock[0]].onclick = null;
+        }
+    }
+    console.log(playerArray);
 
+    firstBlockPos.fill(0);
+    lastBlockPos.fill(0);
+    placedBlocks = 0;
+    shipsQuantity[shipSize - 1] -= 1;
+    if (shipsQuantity[shipSize - 1] == 0) {
+        if (shipSize != 0) {
+            shipSize -= 1;
+        } else {
+            placingPhase = false;
+        }
+    }
+    verifyButton.disabled = true;
+}
 
 
 

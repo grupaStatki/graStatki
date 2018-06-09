@@ -225,9 +225,17 @@ function addShipToTable() {
     verifyButton.disabled = true;
 }
 
-
+function placingPhaseListener() {
+    if(placingPhase == true) {
+        setTimeout(placingPhaseListener, 50);
+        return;
+    }
+    alert("SKONCZONO");
+}
 
 window.onload = function () {
+	checkCookie();
+	placingPhaseListener();
     gameTables = document.getElementsByName("gameArea");
     display = document.querySelector('#time');
     drawTable();

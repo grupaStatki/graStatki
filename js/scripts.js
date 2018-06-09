@@ -80,6 +80,8 @@ function tableClick(tableCell) {
 
     if (placingPhase) {
         placeShipBlock(tableCell);
+    } else {
+        alert("koniec fazy");
     }
 }
 
@@ -109,10 +111,6 @@ function placeShipBlock(tableCell) {
 }
 
 function verifyShip() {
-    console.log(shipPlacingArray);
-    console.log(firstBlockPos);
-    console.log(lastBlockPos);
-    console.log(shipPlacingArray[lastBlockPos[1]][lastBlockPos[0]]);
 
     var count = 0;
     if (firstBlockPos[1] == lastBlockPos[1]) {
@@ -208,20 +206,17 @@ function addShipToTable() {
             }
         }
     }
-    console.log(playerArray);
-
 
     for (var i = 0; i < height; i++) {
         shipPlacingArray[i] = new Array(width).fill(0);
     }
-
 
     firstBlockPos.fill(0);
     lastBlockPos.fill(0);
     placedBlocks = 0;
     shipsQuantity[shipSize - 1] -= 1;
     if (shipsQuantity[shipSize - 1] == 0) {
-        if (shipSize != 0) {
+        if (shipSize > 1) {
             shipSize -= 1;
         } else {
             placingPhase = false;
@@ -229,8 +224,6 @@ function addShipToTable() {
     }
     verifyButton.disabled = true;
 }
-
-
 
 
 

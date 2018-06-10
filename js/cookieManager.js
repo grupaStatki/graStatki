@@ -30,4 +30,6 @@ function checkCookie() {
             setCookie("username", user, 365);
         }
     }
+	
+	return user;
 }

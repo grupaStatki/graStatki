@@ -29,6 +29,7 @@ for (var i = 0; i < height; i++) {
     playerArray[i] = new Array(width).fill(0);
 }
 //
+var userID;
 
 function startTimer() {
 
@@ -231,10 +232,11 @@ function placingPhaseListener() {
         return;
     }
     alert("SKONCZONO");
+    sendTable(userID, playerArray);
 }
 
 window.onload = function () {
-	checkCookie();
+	userID = checkCookie();
 	placingPhaseListener();
     gameTables = document.getElementsByName("gameArea");
     display = document.querySelector('#time');

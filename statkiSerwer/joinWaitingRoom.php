@@ -12,20 +12,13 @@ if ($conn->connect_error) {
 } 
 
 $playerID = $_POST["playerID"];
-$gameArray = $_POST["gameArray"];
 
-$sql = 'INSERT INTO playersarrays (playerID, gameArray) VALUES ('. $playerID . ',' . $gameArray . ')';
+$sql = 'INSERT INTO waitingroom (playerID) VALUES (' . $playerID . ')';
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
 } else {
-    $sql = 'UPDATE playersarrays SET gameArray = ' . $gameArray . ' WHERE playerID = ' . $playerID ;
-    if ($conn->query($sql) === TRUE) {
-        echo "Updated successfully";
-    }
-    else {
-        echo "Error updating record: " . $conn->error;
-    }
+    echo "Error updating record: " . $conn->error;
 }
 
 $conn->close();

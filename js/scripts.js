@@ -235,8 +235,13 @@ function placingPhaseListener() {
     sendTable(userID, playerArray);
 }
 
+window.addEventListener("beforeunload", function(event) {
+    leaveWaitingRoom(userID);
+});
+
 window.onload = function () {
-	userID = checkCookie();
+    userID = checkCookie();
+    joinWaitingRoom(userID);
 	placingPhaseListener();
     gameTables = document.getElementsByName("gameArea");
     display = document.querySelector('#time');

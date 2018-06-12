@@ -78,6 +78,20 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
+//tablica z pokojami gier
+$sql = "CREATE TABLE userTable ( 
+    userID VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    UNIQUE(userID)
+    )";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
 $conn->close();
 
 ?>

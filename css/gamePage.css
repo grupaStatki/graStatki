@@ -14,7 +14,13 @@ body {
 	flex-flow: row wrap;
 } 
 .click {
+	background-color: lightblue;
+}
+.placed {
 	background-color: blue;
+}
+.blocked {
+	background-color: lightgray;
 }
 table td {
 	width: 50px;

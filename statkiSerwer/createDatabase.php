@@ -54,9 +54,22 @@ if ($conn->query($sql) === TRUE) {
 
 //tablica oczekiwania na przeciwnika
 $sql = "CREATE TABLE waitingRoom ( 
-    player VARCHAR(100) NOT NULL,
     playerID VARCHAR(100) NOT NULL,
-    PRIMARY KEY (playerID),
+    UNIQUE(playerID)
+    )";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
+//tablica z pokojami gier
+$sql = "CREATE TABLE gameRoom ( 
+    gameID VARCHAR(100) NOT NULL,
+    gamePlayerOne VARCHAR(100) NOT NULL,
+    gamePlayerTwo VARCHAR(100) NOT NULL,
+    UNIQUE(gameID)
     )";
 
 if ($conn->query($sql) === TRUE) {

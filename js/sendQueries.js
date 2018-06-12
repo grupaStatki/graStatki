@@ -1,3 +1,5 @@
+var gameID;
+
 function sendTable(playerID, playerArray) {
 	var stringArray = playerArray.toString();
   var xhttp = new XMLHttpRequest();
@@ -34,5 +36,26 @@ function leaveWaitingRoom(playerID) {
   };
   xhttp.open("POST", "http://localhost/statkiSerwer/leaveWaitingRoom.php", false);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send("playerID='" + playerID + "'");
+  xhttp.send("playerID='" + playerID + "'&gameID='" + gameID + "'");
+}
+
+function requestForOpponent(playerID){
+
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        gameID = this.responseText;
+      }
+    };
+    xhttp.open("POST", "http://localhost/statkiSerwer/gameRoomUpdater.php", false);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send("playerID='" + playerID + "'");
+  }, 1000);
+
+  updateInfoOnPage();
+}
+
+function getGameID(){
+  return gameID;
 }

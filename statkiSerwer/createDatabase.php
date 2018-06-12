@@ -78,9 +78,9 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
-//tablica z pokojami gier
+//tablica z uzytkownikami
 $sql = "CREATE TABLE userTable ( 
-    userID VARCHAR(100) NOT NULL,
+    userID INT(100) NOT NULL AUTO_INCREMENT,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
     UNIQUE(userID)

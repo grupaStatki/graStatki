@@ -29,6 +29,7 @@ for (var i = 0; i < height; i++) {
     playerArray[i] = new Array(width).fill(0);
 }
 //
+var playerID;
 
 function startTimer() {
 
@@ -225,9 +226,24 @@ function addShipToTable() {
     verifyButton.disabled = true;
 }
 
+function placingPhaseListener() {
+    if(placingPhase == true) {
+        setTimeout(placingPhaseListener, 50);
+        return;
+    }
+    alert("SKONCZONO");
+    sendTable(playerID, playerArray);
+}
 
+window.addEventListener("beforeunload", function(event) {
+    leaveWaitingRoom(playerID);
+});
 
 window.onload = function () {
+    playerID = checkCookie();
+    joinWaitingRoom(playerID);
+    requestForOpponent(playerID);
+	placingPhaseListener();
     gameTables = document.getElementsByName("gameArea");
     display = document.querySelector('#time');
     drawTable();
@@ -235,4 +251,5 @@ window.onload = function () {
     verifyButton = document.getElementById("verifyButton");
     verifyButton.disabled = true;
     //this.alert("Witaj! Na początek ustawimy statki.\n Zacznij od 4-masztowca, gdy będziesz gotowy kliknij Verify Ship!");
+    
 };

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Game</title>
+    <title>BatleShips</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -63,7 +63,7 @@
               <a class="nav-link" href="#">Gra</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pomoc</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Pomoc</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="#">Wyloguj</a>
@@ -72,9 +72,25 @@
         </div>
       </div>
     </nav>
-
+	<!-- Pomoc -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Zamknij</span></button>
+			<h4 class="modal-title" id="myModalLabel"></h4>
+		  </div>
+		  <div class="modal-body">
+			<p>WIP</p>
+		  </div>
+		  <div class="modal-footer">
+			
+		  </div>
+		</div>
+	  </div>
+	</div>
     <!-- Page Content -->
-  <div class="container card card-body bg-light">Czas pozostaly na ruch: <span id="time"> </span><button onclick="resetTimer()">Reset timer</button>
+  <div class="container card card-body bg-light">Czas pozostaly na ruch: <span id="time"> </span><button onclick="resetTimer()" button class="btn">Reset timer</button>
   <div id="serwerInfo"></div>
   </div>
     <div class="container card card-body bg-light" style="margin-top:10px"> 
@@ -83,7 +99,7 @@
 			<table name="gameArea" id="playerArea">
 
       </table>
-      <button id="verifyButton" onclick="verifyShip()">Verify Ship</button>
+      <button id="verifyButton" button class="btn btn-basic btn-block" onclick="verifyShip()">Verify Ship</button>
 		</div>
 		
 		<div class="board">

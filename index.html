@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Game</title>
+    <title>BatleShips</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -16,12 +16,16 @@
     <!-- Bootstrap core JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<script src="js/timer.js"></script>
+    <script src="js/scripts.js"></script>
+	<script src="js/cookieManager.js"></script>
+  <script src="js/sendQueries.js"></script>
+  <script src="js/client.js"></script>
+
 		
     <!-- Custom styles -->
     <link href="css/gamePage.css" rel="stylesheet">
 	
-	
+	<!--
 	<script>
 
 	var M = 10;
@@ -41,7 +45,8 @@
 		});
 		
 	});
-	</script>
+  </script>
+-->
   </head>
 
   <body>
@@ -85,23 +90,25 @@
 	  </div>
 	</div>
     <!-- Page Content -->
-	<div class="container card card-body bg-light">Czas pozostaly na ruch: <span id="time"> </span><button onclick="resetTimer()">Reset timer</button></div>
+  <div class="container card card-body bg-light">Czas pozostaly na ruch: <span id="time"> </span><button onclick="resetTimer()">Reset timer</button>
+  <div id="serwerInfo"></div>
+  </div>
     <div class="container card card-body bg-light" style="margin-top:10px"> 
 		<div class="board">
 			<h1>TY<span class="badge badge-secondary" style="float:right">4000</span></h1>
-			<table>
+			<table name="gameArea" id="playerArea">
 
-			</table>
+      </table>
+      <button id="verifyButton" onclick="verifyShip()">Verify Ship</button>
 		</div>
 		
 		<div class="board">
 			<h1>OPONENT<span class="badge badge-secondary" style="float:right">10000</span></h1>
-			<table>
+			<table name="gameArea" id="oponentArea">
 
 			</table>
-		</div>
-	</div>
-	
+    </div>
+  </div>	
 
   </body>
 

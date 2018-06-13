@@ -15,11 +15,12 @@ if(isset($_POST['submit']))
 	$querymails = 'SELECT email FROM usertable WHERE email=\''.$email.'\'';
 	$mails = $conn->query($querymails);
 	if($mails->num_rows > 0){
-		echo "Błąd! Email już w bazie!";
+		echo "<h3>Błąd! Email już w bazie! Powracam do ekranu rejestracji.</h3>";
+		header( "refresh:2; url=../registerPage.html" ); 
 	} else {
 		$query = 'INSERT INTO usertable (email,password) VALUES (\''.$email.'\',\''.$password.'\')';
 		if($conn->query($query) === TRUE){
-			echo "Rejestracja udana!";
+			header( "refresh:0; url=../index.html" ); 
 		}
 	}
 }

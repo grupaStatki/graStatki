@@ -233,6 +233,7 @@ function placingPhaseListener() {
     }
     alert("SKONCZONO");
     sendTable(playerID, playerArray);
+    whoseMoveListener(playerID);
 }
 
 window.addEventListener("beforeunload", function(event) {

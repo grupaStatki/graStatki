@@ -22,6 +22,12 @@ body {
 .blocked {
 	background-color: lightgray;
 }
+.hit {
+	background-color: rgb(199, 23, 23);
+}
+.miss{
+	background-color: rgb(241, 132, 132);
+}
 table td {
 	width: 50px;
 	height: 50px;

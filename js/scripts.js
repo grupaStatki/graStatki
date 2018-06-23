@@ -248,6 +248,7 @@ function shot(tableCell) {
     var x = tableCell.id.substring(1, 2);
     var y = tableCell.id.substring(2, 3);
 
+    fireToEnemy(x,y);
     gameTables[1].rows[x].cells[y].classList.toggle("hit");
     gameTables[1].rows[x].cells[y].onclick = null;
 

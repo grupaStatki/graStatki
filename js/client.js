@@ -5,7 +5,7 @@ function updateInfoOnPage() {
         if(gameID == "NOT")
             document.getElementById("serwerInfo").innerHTML = "BRAK PRZECIWNIKA<BR>CZEKAM";
         else
-            document.getElementById("serwerInfo").innerHTML = "ZNALEZIONO PRZECIWNIKA";
+            document.getElementById("serwerInfo").innerHTML = "ZNALEZIONO PRZECIWNIKA " + getEnemyID();
         
       }, 2000);
 }

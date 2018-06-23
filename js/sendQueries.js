@@ -1,11 +1,13 @@
 var gameID;
+var isYourMove;
+var enemyID
 
 function sendTable(playerID, playerArray) {
 	var stringArray = playerArray.toString();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      alert(this.responseText);
+      
     }
   };
   xhttp.open("POST", "http://localhost/statkiSerwer/insertAndUpdate.php", true);
@@ -51,11 +53,56 @@ function requestForOpponent(playerID){
     xhttp.open("POST", "http://localhost/statkiSerwer/gameRoomUpdater.php", false);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send("playerID='" + playerID + "'");
-  }, 1000);
+  }, 2000);
 
   updateInfoOnPage();
 }
 
 function getGameID(){
   return gameID;
+}
+
+function getEnemyID(){
+  var tmp = gameID.split('#And#');
+
+  if(tmp[0]==playerID)
+    enemyID = tmp[1];
+  else
+    enemyID = tmp[0];
+
+  return enemyID;
+}
+
+function getIsYourMove(){
+  return isYourMove;
+}
+
+function whoseMoveListener(playerID, gameID){
+
+  var gameID = getGameID();
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        isYourMove = this.responseText;
+      }
+    };
+    xhttp.open("POST", "http://localhost/statkiSerwer/whoseMove.php", false);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send("playerID='" + playerID + "'&gameID='" + gameID + "'");
+  }, 1000);
+
+  updateGameOnPage();
+}
+
+function fireToEnemy(x,y){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      alert(this.responseText);
+    }
+  };
+  xhttp.open("POST", "http://localhost/statkiSerwer/index.php", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send("playerID='" + getEnemyID() + "'&x=" + x + "&y=" + y);
 }

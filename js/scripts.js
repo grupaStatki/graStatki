@@ -87,10 +87,8 @@ function tableClick(tableCell) {
         if (tableCell.parentNode.parentNode.parentNode.id === "playerArea")
             placeShipBlock(tableCell);
     } else {
-        if (tableCell.parentNode.parentNode.parentNode.id === "oponentArea" && playerTurn)
+        if (tableCell.parentNode.parentNode.parentNode.id === "oponentArea" && getIsYourMove()=="YES")
             shot(tableCell);
-        else
-            alert("Time's up");
     }
 }
 
@@ -239,9 +237,9 @@ function placingPhaseListener() {
         setTimeout(placingPhaseListener, 50);
         return;
     }
-    alert("SKONCZONO");
     sendTable(playerID, playerArray);
     whoseMoveListener(playerID);
+    setPlayerReady(playerID, 1);
 }
 
 function shot(tableCell) {
@@ -249,7 +247,6 @@ function shot(tableCell) {
     var y = tableCell.id.substring(2, 3);
 
     fireToEnemy(x,y);
-    gameTables[1].rows[x].cells[y].classList.toggle("hit");
     gameTables[1].rows[x].cells[y].onclick = null;
 
 }
@@ -260,7 +257,9 @@ window.addEventListener("beforeunload", function (event) {
 
 
 window.onload = function () {
+    document.getElementById("myAlert").style.visibility = "hidden";
     playerID = checkCookie();
+    setPlayerReady(playerID, 0);
     joinWaitingRoom(playerID);
     requestForOpponent(playerID);
     placingPhaseListener();
@@ -276,4 +275,6 @@ window.onload = function () {
             verifyShip();
         return false;
     }
+  
+
 };

@@ -19,7 +19,7 @@ function joinWaitingRoom(playerID) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var value = "<br>Dołączono do serwera";
+      var value = "<span class='badge badge-secondary'>DOŁĄCZONO DO SERWERA</span>";
       document.getElementById("serwerInfo").innerHTML = value;
     }
   };
@@ -32,7 +32,7 @@ function leaveWaitingRoom(playerID) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      var value = "<br>Opuszczono serwer";
+      var value = "Opuszczono serwer";
       document.getElementById("serwerInfo").innerHTML = value;
     }
   };
@@ -99,10 +99,32 @@ function fireToEnemy(x,y){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      alert(this.responseText);
+      if(this.responseText==""){
+        document.getElementById("myAlert").innerHTML = "PUDŁO";
+        gameTables[1].rows[x].cells[y].classList.toggle("miss");
+      }
+      else{
+        document.getElementById("myAlert").innerHTML = this.responseText;
+        gameTables[1].rows[x].cells[y].classList.toggle("hit");
+      }
+
+      document.getElementById("myAlert").style.visibility = "visible";
+      setTimeout(function() { document.getElementById("myAlert").style.visibility = "hidden"; }, 2000);
     }
   };
-  xhttp.open("POST", "http://localhost/statkiSerwer/index.php", true);
+  xhttp.open("POST", "http://localhost/statkiSerwer/fireToEnemy.php", true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send("playerID='" + getEnemyID() + "'&x=" + x + "&y=" + y);
+  xhttp.send("playerID='" + getEnemyID() + "'&x=" + x + "&y=" + y + "&gameID='" + gameID + "'");
+}
+
+function setPlayerReady(playerID, value) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      
+    }
+  };
+  xhttp.open("POST", "http://localhost/statkiSerwer/index.php", false);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send("playerID='" + playerID + "'&isReady='" + value + "'");
 }

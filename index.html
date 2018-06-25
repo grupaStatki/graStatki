@@ -25,28 +25,6 @@
     <!-- Custom styles -->
     <link href="css/gamePage.css" rel="stylesheet">
 	
-	<!--
-	<script>
-
-	var M = 10;
-	var N = 10;
-
-	$(function(){
-		$("table").append("<tbody>");
-		
-		for(var i=0; i<M; i++)
-			$("tbody").append("<tr>");
-		
-		for(var i=0; i<N; i++)
-			$("tr").append("<td>");
-			
-		$("td").click(function(e){
-			$(this).toggleClass("click");
-		});
-		
-	});
-  </script>
--->
   </head>
 
   <body>
@@ -72,14 +50,18 @@
         </div>
       </div>
     </nav>
-
+    <div class="myAlertDiv">
+    <div class="alert alert-success" id="myAlert" role="alert">
+      WELCOME
+    </div></div>
     <!-- Page Content -->
-  <div class="container card card-body bg-light">Czas pozostaly na ruch: <span id="time"> </span><button onclick="resetTimer()">Reset timer</button>
-  <div id="serwerInfo"></div><div id="gameInfo"></div>
+  <div class="container card card-body bg-light">
+  <div id="serwerInfo"></div>
+  <div id="gameInfo"></div>
   </div>
     <div class="container card card-body bg-light" style="margin-top:10px"> 
 		<div class="board">
-			<h1>TY<span class="badge badge-secondary" style="float:right">4000</span></h1>
+			<h1>TY</h1>
 			<table name="gameArea" id="playerArea">
 
       </table>
@@ -87,7 +69,7 @@
 		</div>
 		
 		<div class="board">
-			<h1>OPONENT<span class="badge badge-secondary" style="float:right">10000</span></h1>
+			<h1>OPONENT</h1>
 			<table name="gameArea" id="oponentArea">
 
 			</table>

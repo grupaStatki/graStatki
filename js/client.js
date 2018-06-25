@@ -3,9 +3,9 @@ function updateInfoOnPage() {
         
         var gameID = getGameID();
         if(gameID == "NOT")
-            document.getElementById("serwerInfo").innerHTML = "BRAK PRZECIWNIKA<BR>CZEKAM";
+            document.getElementById("serwerInfo").innerHTML = "<span class='badge badge-secondary'>BRAK PRZECIWNIKA, CZEKAM</span>";
         else
-            document.getElementById("serwerInfo").innerHTML = "ZNALEZIONO PRZECIWNIKA " + getEnemyID();
+            document.getElementById("serwerInfo").innerHTML = "<span class='badge badge-primary'>ZNALEZIONO PRZECIWNIKA " + getEnemyID() + "</span>";
         
       }, 2000);
 }
@@ -15,9 +15,11 @@ function updateGameOnPage() {
         
         var isYourMove = getIsYourMove();
         if(isYourMove == "YES")
-            document.getElementById("gameInfo").innerHTML = "TWOJ RUCH";
+            document.getElementById("gameInfo").innerHTML = "<span class='badge badge-success'>TWOJ RUCH</span>";
+        else if (isYourMove == "NO")
+            document.getElementById("gameInfo").innerHTML = "<span class='badge badge-danger'>RUCH PRZECIWNIKA</span>";
         else
-            document.getElementById("gameInfo").innerHTML = "RUCH PRZECIWNIKA";
+            document.getElementById("gameInfo").innerHTML = "<span class='badge badge-secondary'>PRZECIWNIK NIE GOTOWY</span>";
         
       }, 1000);
 }

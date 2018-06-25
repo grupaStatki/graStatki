@@ -37,6 +37,14 @@ if ($conn->query($sql) === TRUE) {
     echo "Error deleting record: " . $conn->error;
 }
 
+$sql = 'DELETE FROM lastmove WHERE gameID = ' . $gameID;
+
+if ($conn->query($sql) === TRUE) {
+    echo "Deleted successfully";
+} else {
+    echo "Error deleting record: " . $conn->error;
+}
+
 $conn->close();
 
 ?>

@@ -1,6 +1,7 @@
 var gameID;
 var isYourMove;
-var enemyID
+var enemyID;
+var lastMove;
 
 function sendTable(playerID, playerArray) {
 	var stringArray = playerArray.toString();
@@ -124,7 +125,41 @@ function setPlayerReady(playerID, value) {
       
     }
   };
-  xhttp.open("POST", "http://localhost/statkiSerwer/index.php", false);
+  xhttp.open("POST", "http://localhost/statkiSerwer/setPlayerReady.php", false);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send("playerID='" + playerID + "'&isReady='" + value + "'");
+}
+
+function lastMoveInsert(playerID, x,y) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      
+    }
+  };
+  xhttp.open("POST", "http://localhost/statkiSerwer/lastMoveInsert.php", false);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send("playerID='" + playerID + "'&gameID='" + gameID + "'&x='" + x + "'&y='" + y + "'");
+}
+
+function enemyMoveListener(playerID, gameID){
+
+  var gameID = getGameID();
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        lastMove = this.responseText;
+      }
+    };
+    xhttp.open("POST", "http://localhost/statkiSerwer/lastMoveListener.php", false);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send("playerID='" + playerID + "'&gameID='" + gameID + "'");
+  }, 1000);
+
+  updateOwnTableScreen();
+}
+
+function getLastMove(){
+  return lastMove;
 }

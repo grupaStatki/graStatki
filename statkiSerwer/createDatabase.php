@@ -91,6 +91,21 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
+$sql = "CREATE TABLE lastMove ( 
+    gameID VARCHAR(100) NOT NULL,
+    x VARCHAR(100) NOT NULL,
+    y VARCHAR(100) NOT NULL,
+    playerID VARCHAR(100) NOT NULL,
+    UNIQUE(gameID)
+    )";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
+
 $conn->close();
 
 ?>

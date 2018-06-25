@@ -23,3 +23,23 @@ function updateGameOnPage() {
         
       }, 1000);
 }
+
+function updateOwnTableScreen(){
+    setInterval(function () {
+        
+        var lastMove = getLastMove();
+        if(lastMove != "NOT"){
+            var splited = lastMove.split("#");
+            var x = splited[0];
+            var y = splited[1];
+
+            if(!(gameTables[0].rows[x].cells[y].classList.contains("miss") || gameTables[0].rows[x].cells[y].classList.contains("hit"))){
+                if(gameTables[0].rows[x].cells[y].classList.contains("placed"))
+                    gameTables[0].rows[x].cells[y].classList.toggle("hit");
+                else
+                    gameTables[0].rows[x].cells[y].classList.toggle("miss");
+            }
+        }
+        
+      }, 1000);
+}

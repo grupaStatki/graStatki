@@ -81,7 +81,16 @@ function getIsYourMove(){
 function whoseMoveListener(playerID, gameID){
 
   var gameID = getGameID();
-  setInterval(function () {
+  var refreshId = setInterval(function () {
+    if(getOwnCounter()==20){
+      alert("WYGRANA");
+      clearInterval(refreshId);
+    }
+
+    if(getEnemyCounter()==20){
+      alert("PRZEGRANA");
+      clearInterval(refreshId);
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -107,10 +116,11 @@ function fireToEnemy(x,y){
       else{
         document.getElementById("myAlert").innerHTML = this.responseText;
         gameTables[1].rows[x].cells[y].classList.toggle("hit");
+        addHitOwn();
       }
 
       document.getElementById("myAlert").style.visibility = "visible";
-      setTimeout(function() { document.getElementById("myAlert").style.visibility = "hidden"; }, 2000);
+      setTimeout(function() { document.getElementById("myAlert").style.visibility = "hidden"; }, 1000);
     }
   };
   xhttp.open("POST", "http://localhost/statkiSerwer/fireToEnemy.php", true);

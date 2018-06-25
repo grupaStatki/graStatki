@@ -32,6 +32,25 @@ for (var i = 0; i < height; i++) {
 //
 var playerID;
 
+var hitCounterOwn = 0;
+var hitCounterEnemy = 0;
+
+function getEnemyCounter(){
+    return hitCounterEnemy;
+}
+
+function getOwnCounter(){
+    return hitCounterOwn;
+}
+
+function addHitOwn(){
+    hitCounterOwn = hitCounterOwn + 1;
+}
+
+function addHitEnemy(){
+    hitCounterEnemy = hitCounterEnemy + 1;
+}
+
 function startTimer() {
 
     setInterval(function () {

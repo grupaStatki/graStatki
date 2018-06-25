@@ -34,8 +34,10 @@ function updateOwnTableScreen(){
             var y = splited[1];
 
             if(!(gameTables[0].rows[x].cells[y].classList.contains("miss") || gameTables[0].rows[x].cells[y].classList.contains("hit"))){
-                if(gameTables[0].rows[x].cells[y].classList.contains("placed"))
+                if(gameTables[0].rows[x].cells[y].classList.contains("placed")){
                     gameTables[0].rows[x].cells[y].classList.toggle("hit");
+                    addHitEnemy();
+                }
                 else
                     gameTables[0].rows[x].cells[y].classList.toggle("miss");
             }

@@ -22,12 +22,25 @@ body {
 .blocked {
 	background-color: lightgray;
 }
+.hit {
+	background-color: rgb(199, 23, 23);
+}
+.miss{
+	background-color: rgb(241, 132, 132);
+}
 table td {
 	width: 50px;
 	height: 50px;
 }
 .board {
 	margin: 0 auto;
+}
+.myAlertDiv {
+    position:fixed; 
+    bottom: 0px; 
+    left: 0px; 
+    z-index:9999; 
+	border-radius:0px
 }
 table, td, th { 
 	border: 1px solid gray;

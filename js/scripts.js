@@ -10,7 +10,8 @@ var height = 10,
 //
 //ship placing variables
 var placingPhase = true,
-    dirHorizontal = true; // true - horizontal, false - vertical
+    dirHorizontal = true, // true - horizontal, false - vertical
+    playerTurn = true;
 var shipSize = 4,
     placedBlocks = 0;
 var firstBlockPos = new Array(2),
@@ -31,6 +32,25 @@ for (var i = 0; i < height; i++) {
 //
 var playerID;
 
+var hitCounterOwn = 0;
+var hitCounterEnemy = 0;
+
+function getEnemyCounter(){
+    return hitCounterEnemy;
+}
+
+function getOwnCounter(){
+    return hitCounterOwn;
+}
+
+function addHitOwn(){
+    hitCounterOwn = hitCounterOwn + 1;
+}
+
+function addHitEnemy(){
+    hitCounterEnemy = hitCounterEnemy + 1;
+}
+
 function startTimer() {
 
     setInterval(function () {
@@ -44,6 +64,7 @@ function startTimer() {
 
         if (--timer < 0) {
             display.textContent = "END";
+            playerTurn = false;
         }
     }, 1000);
 
@@ -53,12 +74,14 @@ function startTimer() {
 function resetTimer() {
     duration = 3;
     timer = duration, minutes, seconds;
+    playerTurn = true;
 }
 
 
 function drawTable() {
 
     for (var el = 0; el < gameTables.length; el++) {
+
         for (var i = 0; i < height; i++) {
             var column = gameTables[el].insertRow(i);
 
@@ -80,9 +103,11 @@ function drawTable() {
 function tableClick(tableCell) {
 
     if (placingPhase) {
-        placeShipBlock(tableCell);
+        if (tableCell.parentNode.parentNode.parentNode.id === "playerArea")
+            placeShipBlock(tableCell);
     } else {
-        alert("koniec fazy");
+        if (tableCell.parentNode.parentNode.parentNode.id === "oponentArea" && getIsYourMove()=="YES")
+            shot(tableCell);
     }
 }
 
@@ -227,29 +252,48 @@ function addShipToTable() {
 }
 
 function placingPhaseListener() {
-    if(placingPhase == true) {
+    if (placingPhase == true) {
         setTimeout(placingPhaseListener, 50);
         return;
     }
-    alert("SKONCZONO");
     sendTable(playerID, playerArray);
+    whoseMoveListener(playerID);
+    enemyMoveListener(playerID, getGameID());
+    setPlayerReady(playerID, 1);
 }
 
-window.addEventListener("beforeunload", function(event) {
+function shot(tableCell) {
+    var x = tableCell.id.substring(1, 2);
+    var y = tableCell.id.substring(2, 3);
+    lastMoveInsert(playerID,x,y);
+    fireToEnemy(x,y);
+    gameTables[1].rows[x].cells[y].onclick = null;
+
+}
+
+window.addEventListener("beforeunload", function (event) {
     leaveWaitingRoom(playerID);
 });
 
+
 window.onload = function () {
+    document.getElementById("myAlert").style.visibility = "hidden";
     playerID = checkCookie();
+    setPlayerReady(playerID, 0);
     joinWaitingRoom(playerID);
     requestForOpponent(playerID);
-	placingPhaseListener();
+    placingPhaseListener();
     gameTables = document.getElementsByName("gameArea");
     display = document.querySelector('#time');
     drawTable();
-    startTimer();
     verifyButton = document.getElementById("verifyButton");
     verifyButton.disabled = true;
     //this.alert("Witaj! Na początek ustawimy statki.\n Zacznij od 4-masztowca, gdy będziesz gotowy kliknij Verify Ship!");
-    
+    document.oncontextmenu = function (event) {
+        if (placingPhase)
+            verifyShip();
+        return false;
+    }
+  
+
 };

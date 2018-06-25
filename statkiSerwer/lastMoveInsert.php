@@ -12,14 +12,16 @@ if ($conn->connect_error) {
 } 
 
 $playerID = $_POST["playerID"];
-$isReady = $_POST["isReady"];
+$gameID = $_POST["gameID"];
+$x = $_POST["x"];
+$y = $_POST["y"];
 
-$sql = 'INSERT INTO playerready (playerID, isReady) VALUES ('. $playerID . ',' . $isReady . ')';
+$sql = 'INSERT INTO lastmove (gameID, x, y, playerID) VALUES (' . $gameID . ',' . $x . ',' . $y . ',' . $playerID . ')';
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
 } else {
-    $sql = 'UPDATE playerready SET isReady = ' . $isReady . ' WHERE playerID = ' . $playerID ;
+    $sql = 'UPDATE lastmove SET x=' . $x . ', y=' . $y . ', playerID=' . $playerID .' WHERE gameID = ' . $gameID ;
     if ($conn->query($sql) === TRUE) {
         echo "Updated successfully";
     }

@@ -31,7 +31,7 @@ else {
         $row = $result->fetch_assoc();
         $playerTwo = $row["playerID"];
 
-        $gameID = $playerOne . "And" . $playerTwo;
+        $gameID = $playerOne . "#And#" . $playerTwo;
 
         $sql = 'INSERT INTO gameroom (gameID, gamePlayerOne, gamePlayerTwo) VALUES ("' . $gameID . '","' . $playerOne . '","' . $playerTwo . '")';
 

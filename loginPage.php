@@ -67,6 +67,7 @@
 			$logindetails = $conn->query($loginquery);
 			if($logindetails->num_rows > 0) {
 				header( "refresh:0; url=index.html" ); 
+				setcookie("username", $email, time() + (86400 * 30 * 7), "/"); // 86400 = 1 day
 			} else {
 				echo '<script type="text/javascript">','wrongCombination();','</script>';
 			}

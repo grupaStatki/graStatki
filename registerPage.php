@@ -81,6 +81,7 @@
 			} else {
 				$query = 'INSERT INTO usertable (email,password) VALUES (\''.$email.'\',\''.$password.'\')';
 				if($conn->query($query) === TRUE){
+					setcookie("username", $email, time() + (86400 * 30 * 7), "/"); // 86400 = 1 day
 					header( "refresh:0; url=index.html" ); 
 				}
 			}
